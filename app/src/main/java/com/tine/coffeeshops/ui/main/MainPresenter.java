@@ -41,7 +41,7 @@ public class MainPresenter implements MainMvp.Presenter {
     }
 
     private void onPermissionGranted() {
-
+        view.onReady();
     }
 
     private void onPermissionDeclined() {

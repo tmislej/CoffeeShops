@@ -11,6 +11,8 @@ public interface MainMvp {
         void showRationale();
 
         void hideRationaleDialog();
+
+        void onReady();
     }
 
     interface Presenter {

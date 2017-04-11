@@ -23,6 +23,8 @@ project.ext {
     daggerVersion = '2.9'
     playServicesVersion = '10.2.1'
     butterknifeVersion = '8.5.1'
+    rxJavaVersion = '1.2.7'
+    rxAndroidVersion = '1.2.1'
 }
 
 task clean(type: Delete) {

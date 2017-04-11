@@ -66,6 +66,9 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
         }
     }
 
+    @Override public void onReady() {
+    }
+
     @Override protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
