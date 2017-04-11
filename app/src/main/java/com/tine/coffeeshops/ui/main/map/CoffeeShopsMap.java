@@ -1,6 +1,9 @@
 package com.tine.coffeeshops.ui.main.map;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -44,10 +47,13 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
                 .inject(this);
     }
 
-    @SuppressWarnings("MissingPermission") @Override public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        map.setMyLocationEnabled(true);
+    @Override public void onMapReady(GoogleMap googleMap) {
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            map = googleMap;
+            map.setMyLocationEnabled(true);
 
-        presenter.onMapReady();
+            presenter.onMapReady();
+        }
     }
 }
