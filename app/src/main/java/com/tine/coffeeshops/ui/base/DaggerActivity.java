@@ -17,7 +17,7 @@ public abstract class DaggerActivity<T> extends AppCompatActivity {
         component = inject();
     }
 
-    protected T getComponent() {
+    public T getComponent() {
         return component;
     }
 

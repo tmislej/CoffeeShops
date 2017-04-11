@@ -7,7 +7,7 @@ import android.support.v4.app.ActivityCompat;
 
 import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.ui.base.DaggerActivity;
-import com.tine.coffeeshops.ui.main.map.CoffeeShopsMapView;
+import com.tine.coffeeshops.ui.main.map.CoffeeShopsMap;
 
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
 
     public static final int REQUEST_LOCATION_PERMISSION = 1;
 
-    @BindView(R.id.map_view) CoffeeShopsMapView mapView;
+    @BindView(R.id.map_view) CoffeeShopsMap mapView;
 
     @Inject MainMvp.Presenter presenter;
 
@@ -31,7 +31,6 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         mapView.onCreate(savedInstanceState);
 
         presenter.onCreate();
@@ -67,6 +66,7 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
     }
 
     @Override public void onReady() {
+        mapView.onReady();
     }
 
     @Override protected void onSaveInstanceState(Bundle outState) {

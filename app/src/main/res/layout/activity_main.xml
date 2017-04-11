@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.tine.coffeeshops.ui.main.map.CoffeeShopsMapView
+<com.tine.coffeeshops.ui.main.map.CoffeeShopsMap
     android:id="@+id/map_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
