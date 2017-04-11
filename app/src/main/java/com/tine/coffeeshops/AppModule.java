@@ -1,5 +1,7 @@
 package com.tine.coffeeshops;
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -15,6 +17,10 @@ public class AppModule {
     }
 
     @Provides @Singleton App provideApplication() {
+        return app;
+    }
+
+    @Provides @Singleton Context provideApplicationContext() {
         return app;
     }
 }

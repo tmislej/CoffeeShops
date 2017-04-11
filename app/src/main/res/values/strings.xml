@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CoffeeShops</string>
+
+    <string name="rationale_title">Permission required</string>
+    <string name="rationale_text">%1$s requires %2$s in order to show your location and nearby places.</string>
+    <string name="location_permission">location permission</string>
+
+    <string name="next">next</string>
 </resources>

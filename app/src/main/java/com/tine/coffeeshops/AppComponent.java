@@ -1,5 +1,7 @@
 package com.tine.coffeeshops;
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -9,4 +11,6 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(App app);
+
+    Context context();
 }

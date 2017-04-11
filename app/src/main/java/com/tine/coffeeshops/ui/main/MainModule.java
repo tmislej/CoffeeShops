@@ -1,5 +1,7 @@
 package com.tine.coffeeshops.ui.main;
 
+import android.content.Context;
+
 import com.tine.coffeeshops.di.scopes.ActivityScope;
 
 import dagger.Module;
@@ -18,7 +20,7 @@ public class MainModule {
         return view;
     }
 
-    @ActivityScope @Provides MainMvp.Presenter providePresenter(MainMvp.View view) {
-        return new MainPresenter(view);
+    @ActivityScope @Provides MainMvp.Presenter providePresenter(MainMvp.View view, Context context) {
+        return new MainPresenter(view, context);
     }
 }

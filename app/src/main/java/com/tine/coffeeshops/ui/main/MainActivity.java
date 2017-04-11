@@ -1,6 +1,9 @@
 package com.tine.coffeeshops.ui.main;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 
 import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.ui.base.DaggerActivity;
@@ -13,9 +16,13 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends DaggerActivity<MainComponent> implements MainMvp.View {
 
+    public static final int REQUEST_LOCATION_PERMISSION = 1;
+
     @BindView(R.id.map_view) CoffeeShopsMapView mapView;
 
     @Inject MainMvp.Presenter presenter;
+
+    private Dialog rationaleDialog;
 
     // region activity callbacks
 
@@ -26,6 +33,8 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
         ButterKnife.bind(this);
 
         mapView.onCreate(savedInstanceState);
+
+        presenter.onCreate();
     }
 
     @Override protected void onStart() {
@@ -51,6 +60,10 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
     @Override protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+
+        if (rationaleDialog != null && rationaleDialog.isShowing()) {
+            rationaleDialog.dismiss();
+        }
     }
 
     @Override protected void onSaveInstanceState(Bundle outState) {
@@ -65,6 +78,19 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
 
     // endregion activity callbacks
 
+
+    @Override public void requestPermission(String permission) {
+        ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_LOCATION_PERMISSION);
+    }
+
+    @Override public boolean shouldShowRationale(String permission) {
+        return ActivityCompat.shouldShowRequestPermissionRationale(this, permission);
+    }
+
+    @Override public void hideRationaleDialog() {
+        rationaleDialog.dismiss();
+    }
+
     @Override protected MainComponent inject() {
         MainComponent component = DaggerMainComponent.builder()
                 .appComponent(getAppComponent())
@@ -74,5 +100,22 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
         component.inject(this);
 
         return component;
+    }
+
+    @Override public void showRationale() {
+        rationaleDialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.rationale_title)
+                .setCancelable(false)
+                .setMessage(getString(R.string.rationale_text, getString(R.string.app_name),
+                        getString(R.string.location_permission)))
+                .setPositiveButton(R.string.next, (dialog, which) -> presenter.onRationaleNext())
+                .create();
+
+        rationaleDialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        presenter.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
