@@ -1,6 +1,7 @@
 package com.tine.coffeeshops;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 public class App extends Application {
@@ -22,5 +23,9 @@ public class App extends Application {
 
     @NonNull public AppComponent getComponent() {
         return component;
+    }
+
+    public static App get(@NonNull Context context) {
+        return (App) context.getApplicationContext();
     }
 }

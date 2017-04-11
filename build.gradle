@@ -20,6 +20,7 @@ allprojects {
 
 project.ext {
     daggerVersion = '2.9'
+    playServicesVersion = '10.2.1'
 }
 
 task clean(type: Delete) {
