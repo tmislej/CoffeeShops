@@ -19,8 +19,10 @@ allprojects {
 }
 
 project.ext {
+    supportVersion = '25.3.1'
     daggerVersion = '2.9'
     playServicesVersion = '10.2.1'
+    butterknifeVersion = '8.5.1'
 }
 
 task clean(type: Delete) {
