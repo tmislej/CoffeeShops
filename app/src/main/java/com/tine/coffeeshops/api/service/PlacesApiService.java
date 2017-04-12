@@ -31,7 +31,7 @@ public class PlacesApiService {
     public Single<PlacesResponseWrapper> getNearbyPlaces(double latitude, double longitude, @PlaceType String type,
             int radius) {
         String apiKey = resources.getString(R.string.api_key);
-        String location = String.format(Locale.US, "%f,%f", longitude, latitude);
+        String location = String.format(Locale.US, "%f,%f", latitude, longitude);
         return apiService.getNearbyPlaces(apiKey, location, type, radius).subscribeOn(Schedulers.io());
     }
 

@@ -3,7 +3,6 @@ package com.tine.coffeeshops.ui.main.map;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.maps.android.clustering.ClusterManager;
@@ -25,7 +24,7 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
 
-    private static final int RADIUS = 5000;
+    private static final int RADIUS = 250;
 
     private final CoffeeShopsMapMvp.View view;
     private final Context context;
@@ -52,14 +51,13 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
                                 PlacesApiService.TYPE_CAFE, RADIUS))
                 .map(PlacesResponseWrapper::getResults)
                 .map(placeResponses -> {
-                    List<UiPlace> places = new ArrayList<UiPlace>(placeResponses != null ? placeResponses.size() : 0);
+                    List<UiPlace> places = new ArrayList<>(placeResponses != null ? placeResponses.size() : 0);
+
                     for (PlaceResponse placeResponse : placeResponses) {
                         places.add(parsePlace(placeResponse));
                     }
                     return places;
                 })
-//                .toList()
-
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<UiPlace>>() {
                     @Override public void onCompleted() {
@@ -67,12 +65,10 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
 
                     @Override public void onError(Throwable e) {
                         // TODO: 12/04/17 impl.
-                        Log.d("error", "error");
 
                     }
 
                     @Override public void onNext(@Nullable List<UiPlace> location) {
-                        Log.d("next", "next");
                         if (isMapReady) {
                             clusterManager.clearItems();
                             clusterManager.addItems(location);
