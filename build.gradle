@@ -28,6 +28,7 @@ project.ext {
     retrofitVersion = '2.2.0'
     okhttpVersion = '3.6.0'
     gsonVersion = '2.7'
+    mapUtilsVersion= '0.5+'
 }
 
 task clean(type: Delete) {

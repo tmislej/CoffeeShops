@@ -53,7 +53,7 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
             map = googleMap;
             map.setMyLocationEnabled(true);
 
-            presenter.onMapReady();
+            presenter.onMapReady(map);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.tine.coffeeshops.ui.main.map;
 
+import com.google.android.gms.maps.GoogleMap;
+
 public interface CoffeeShopsMapMvp {
 
     interface View {
@@ -12,6 +14,6 @@ public interface CoffeeShopsMapMvp {
 
         void onDetachedFromWindow();
 
-        void onMapReady();
+        void onMapReady(GoogleMap map);
     }
 }

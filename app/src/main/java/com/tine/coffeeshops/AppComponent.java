@@ -1,6 +1,7 @@
 package com.tine.coffeeshops;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.tine.coffeeshops.api.service.PlacesApiService;
 
@@ -15,6 +16,8 @@ public interface AppComponent {
     void inject(App app);
 
     Context context();
+
+    Resources resources();
 
     PlacesApiService placesApiService();
 }

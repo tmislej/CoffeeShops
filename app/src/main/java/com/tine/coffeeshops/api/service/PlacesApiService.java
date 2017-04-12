@@ -13,7 +13,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import rx.Observable;
+import rx.Single;
 import rx.schedulers.Schedulers;
 
 @Singleton
@@ -28,7 +28,7 @@ public class PlacesApiService {
         this.resources = resources;
     }
 
-    public Observable<PlacesResponseWrapper> getNearbyPlaces(double latitude, double longitude, @PlaceType String type,
+    public Single<PlacesResponseWrapper> getNearbyPlaces(double latitude, double longitude, @PlaceType String type,
             int radius) {
         String apiKey = resources.getString(R.string.api_key);
         String location = String.format(Locale.US, "%f,%f", longitude, latitude);

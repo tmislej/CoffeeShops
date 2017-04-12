@@ -1,5 +1,7 @@
 package com.tine.coffeeshops.api.model;
 
+import android.support.annotation.Nullable;
+
 public class PlaceResponse {
 
     private String name;
@@ -12,7 +14,7 @@ public class PlaceResponse {
         return name;
     }
 
-    public OpeningHoursResponse getOpeningHours() {
+    @Nullable public OpeningHoursResponse getOpeningHours() {
         return openingHours;
     }
 
