@@ -49,14 +49,17 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
                 .inject(this);
     }
 
-    @Override public void onMapReady(GoogleMap googleMap) {
+    @Override public void setMyLocationEnabled(boolean enabled) {
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            map = googleMap;
-            map.setMyLocationEnabled(true);
-
-            presenter.onMapReady(map);
+            map.setMyLocationEnabled(enabled);
         }
+
+    }
+
+    @Override public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        presenter.onMapReady(map);
     }
 
     @Override public void showInfoSnackbar(@StringRes int res) {

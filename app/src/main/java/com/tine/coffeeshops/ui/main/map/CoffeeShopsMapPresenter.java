@@ -45,6 +45,9 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
     }
 
     @Override public void onReady() {
+        if (isMapReady) {
+            view.setMyLocationEnabled(true);
+        }
         locationSubscription = Observable.create(new LocationObservable(context))
                 .flatMapSingle(
                         location -> placesApiService.getNearbyPlaces(location.getLatitude(), location.getLongitude(),
@@ -85,6 +88,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
     @Override public void onMapReady(GoogleMap map) {
         isMapReady = true;
         clusterManager = new ClusterManager<>(context, map);
+        view.setMyLocationEnabled(true);
         map.setOnCameraIdleListener(clusterManager);
         map.setOnMarkerClickListener(clusterManager);
     }

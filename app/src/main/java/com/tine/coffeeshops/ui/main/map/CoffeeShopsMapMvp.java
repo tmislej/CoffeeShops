@@ -8,6 +8,8 @@ public interface CoffeeShopsMapMvp {
 
     interface View {
         void showInfoSnackbar(@StringRes int res);
+
+        void setMyLocationEnabled(boolean enabled);
     }
 
     interface Presenter {
