@@ -1,6 +1,5 @@
 package com.tine.coffeeshops;
 
-import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,18 +33,14 @@ public class ApiModule {
         return GsonConverterFactory.create(gson);
     }
 
-    @Provides @Singleton OkHttpClient provideOkHttpClient(OkLogInterceptor interceptor) {
-        return new OkHttpClient.Builder().addInterceptor(interceptor).build();
+    @Provides @Singleton OkHttpClient provideOkHttpClient() {
+        return new OkHttpClient.Builder().build();
     }
 
     @Provides @Singleton Retrofit provideRetrofit(OkHttpClient client, HttpUrl baseUrl, Converter.Factory converter,
             RxJavaCallAdapterFactory callAdapterFactory) {
         return getRetrofit(client, baseUrl, converter, callAdapterFactory);
     }
-
-   @Provides @Singleton OkLogInterceptor provideOkLogInterceptor(){
-       return OkLogInterceptor.builder().build();
-   }
 
     @Provides @Singleton ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
