@@ -49,8 +49,10 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
 
         view.showLoading();
         locationSubscription = Observable.create(new LocationObservable(context))
-                .flatMapSingle(location -> placesApiService.getNearbyPlaces(location.getLatitude(),
-                        location.getLongitude(), PlacesApiService.TYPE_CAFE, RADIUS))
+                .flatMap(location -> placesApiService.getNearbyPlaces(location.getLatitude(),
+                        location.getLongitude(), PlacesApiService.TYPE_CAFE, RADIUS)
+                        .onErrorResumeNext(Observable.empty())
+                )
                 .flatMap(placesResponseWrapper ->
                         Observable.from(placesResponseWrapper.getResults())
                                 .map(this::parsePlace)
