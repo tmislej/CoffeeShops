@@ -3,6 +3,8 @@ package com.tine.coffeeshops.ui.main.map;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
@@ -55,5 +57,9 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
             presenter.onMapReady(map);
         }
+    }
+
+    @Override public void showInfoSnackbar(@StringRes int res) {
+        Snackbar.make(this, res, Snackbar.LENGTH_LONG).show();
     }
 }

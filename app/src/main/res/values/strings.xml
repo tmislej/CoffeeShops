@@ -10,5 +10,7 @@
     <string name="place_closed">Place is closed.</string>
     <string name="place_opening_hours_unknown">Unknown opening hours</string>
 
+    <string name="no_data">No nearby places found in your area.</string>
+
     <string name="api_key">AIzaSyDKW-g7h1lj6AFyA04BZenErtp3cymCN5U</string>
 </resources>

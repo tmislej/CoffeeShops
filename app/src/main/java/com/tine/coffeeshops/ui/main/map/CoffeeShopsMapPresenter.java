@@ -68,11 +68,15 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
 
                     }
 
-                    @Override public void onNext(@Nullable List<UiPlace> location) {
+                    @Override public void onNext(@Nullable List<UiPlace> places) {
                         if (isMapReady) {
-                            clusterManager.clearItems();
-                            clusterManager.addItems(location);
-                            clusterManager.cluster();
+                            if (places != null && places.size() > 0) {
+                                clusterManager.clearItems();
+                                clusterManager.addItems(places);
+                                clusterManager.cluster();
+                            } else {
+                                view.showInfoSnackbar(R.string.no_data);
+                            }
                         }
                     }
                 });
