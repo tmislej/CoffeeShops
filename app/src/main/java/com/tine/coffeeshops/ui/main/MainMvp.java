@@ -1,5 +1,7 @@
 package com.tine.coffeeshops.ui.main;
 
+import android.support.annotation.StringRes;
+
 public interface MainMvp {
 
     interface View {
@@ -13,6 +15,8 @@ public interface MainMvp {
         void hideRationaleDialog();
 
         void onReady();
+
+        void showToast(@StringRes int text);
     }
 
     interface Presenter {

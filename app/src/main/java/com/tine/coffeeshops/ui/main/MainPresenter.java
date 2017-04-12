@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
+import com.tine.coffeeshops.R;
+
 public class MainPresenter implements MainMvp.Presenter {
 
     private static final String LOCATION_PERMISSION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -45,7 +47,7 @@ public class MainPresenter implements MainMvp.Presenter {
     }
 
     private void onPermissionDeclined() {
-
+        view.showToast(R.string.no_permission);
     }
 
     private boolean checkAndRequestPermission(String permission) {

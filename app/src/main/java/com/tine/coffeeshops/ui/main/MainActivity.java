@@ -3,7 +3,9 @@ package com.tine.coffeeshops.ui.main;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
+import android.widget.Toast;
 
 import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.ui.base.DaggerActivity;
@@ -81,6 +83,10 @@ public class MainActivity extends DaggerActivity<MainComponent> implements MainM
 
     // endregion activity callbacks
 
+
+    @Override public void showToast(@StringRes int text) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    }
 
     @Override public void requestPermission(String permission) {
         ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_LOCATION_PERMISSION);
