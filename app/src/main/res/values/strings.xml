@@ -13,6 +13,7 @@
     <string name="no_data">No nearby places found in your area.</string>
     <string name="error_data">An error occured while retrieving data.</string>
     <string name="no_permission">Please, grant location permission in order to use the app.</string>
+    <string name="loading">Loading...</string>
 
     <string name="api_key">AIzaSyDKW-g7h1lj6AFyA04BZenErtp3cymCN5U</string>
 </resources>

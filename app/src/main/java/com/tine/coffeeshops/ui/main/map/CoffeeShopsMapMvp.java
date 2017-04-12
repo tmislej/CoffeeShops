@@ -13,6 +13,10 @@ public interface CoffeeShopsMapMvp {
         void showErrorSnabckbar(@StringRes int res);
 
         void setMyLocationEnabled(boolean enabled);
+
+        void showLoading();
+
+        void hideLoading();
     }
 
     interface Presenter {

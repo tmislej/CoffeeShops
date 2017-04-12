@@ -46,6 +46,8 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
         if (isMapReady) {
             view.setMyLocationEnabled(true);
         }
+
+        view.showLoading();
         locationSubscription = Observable.create(new LocationObservable(context))
                 .flatMapSingle(location -> placesApiService.getNearbyPlaces(location.getLatitude(),
                         location.getLongitude(), PlacesApiService.TYPE_CAFE, RADIUS))
@@ -60,6 +62,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
 
                     @Override public void onError(Throwable e) {
                         view.showErrorSnabckbar(R.string.error_data);
+                        view.hideLoading();
                     }
 
                     @Override public void onNext(@Nullable List<UiPlace> places) {
@@ -72,6 +75,8 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
                                 view.showInfoSnackbar(R.string.no_data);
                             }
                         }
+
+                        view.hideLoading();
                     }
                 });
     }

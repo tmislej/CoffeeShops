@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.ui.main.MainActivity;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
     private GoogleMap map;
     private Snackbar errorSnackbar;
+    private Snackbar loadingSnackbar;
 
     public CoffeeShopsMap(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -36,6 +38,10 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
         super.onDetachedFromWindow();
         if (errorSnackbar != null) {
             errorSnackbar.dismiss();
+        }
+
+        if (loadingSnackbar != null) {
+            loadingSnackbar.dismiss();
         }
 
         presenter.onDetachedFromWindow();
@@ -78,5 +84,14 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
         errorSnackbar = Snackbar.make(this, res, Snackbar.LENGTH_LONG);
         errorSnackbar.getView().setBackgroundResource(android.R.color.holo_red_light);
         errorSnackbar.show();
+    }
+
+    @Override public void showLoading() {
+        loadingSnackbar = Snackbar.make(this, R.string.loading, Snackbar.LENGTH_INDEFINITE);
+        loadingSnackbar.show();
+    }
+
+    @Override public void hideLoading() {
+        loadingSnackbar.dismiss();
     }
 }
