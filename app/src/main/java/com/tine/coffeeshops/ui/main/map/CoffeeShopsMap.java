@@ -24,7 +24,6 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
     public CoffeeShopsMap(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-
     }
 
     @Override protected void onFinishInflate() {
@@ -60,7 +59,6 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             map.setMyLocationEnabled(enabled);
         }
-
     }
 
     @Override public void onMapReady(GoogleMap googleMap) {

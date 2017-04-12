@@ -54,7 +54,6 @@ public class LocationObservable implements Observable.OnSubscribe<Location> {
         callbacks.setGoogleApiClient(apiClient);
 
         return apiClient;
-
     }
 
     private void onGoogleApiClientReady(GoogleApiClient googleApiClient, Subscriber<? super Location> subscriber) {
@@ -82,7 +81,7 @@ public class LocationObservable implements Observable.OnSubscribe<Location> {
         private final Subscriber<? super Location> subscriber;
         private GoogleApiClient googleApiClient;
 
-        public ApiClientConnectionCallbacks(Subscriber<? super Location> subscriber) {
+        ApiClientConnectionCallbacks(Subscriber<? super Location> subscriber) {
             this.subscriber = subscriber;
         }
 
@@ -98,7 +97,7 @@ public class LocationObservable implements Observable.OnSubscribe<Location> {
             subscriber.onError(new GoogleClientConnectionFailedException());
         }
 
-        public void setGoogleApiClient(GoogleApiClient googleApiClient) {
+        void setGoogleApiClient(GoogleApiClient googleApiClient) {
             this.googleApiClient = googleApiClient;
         }
     }

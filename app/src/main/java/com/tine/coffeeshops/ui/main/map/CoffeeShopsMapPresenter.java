@@ -9,12 +9,10 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.api.model.OpeningHoursResponse;
 import com.tine.coffeeshops.api.model.PlaceResponse;
-import com.tine.coffeeshops.api.model.PlacesResponseWrapper;
 import com.tine.coffeeshops.api.service.PlacesApiService;
 import com.tine.coffeeshops.rx.location.LocationObservable;
 import com.tine.coffeeshops.ui.main.map.model.UiPlace;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -49,18 +47,12 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
             view.setMyLocationEnabled(true);
         }
         locationSubscription = Observable.create(new LocationObservable(context))
-                .flatMapSingle(
-                        location -> placesApiService.getNearbyPlaces(location.getLatitude(), location.getLongitude(),
-                                PlacesApiService.TYPE_CAFE, RADIUS))
-                .map(PlacesResponseWrapper::getResults)
-                .map(placeResponses -> {
-                    List<UiPlace> places = new ArrayList<>(placeResponses != null ? placeResponses.size() : 0);
-
-                    for (PlaceResponse placeResponse : placeResponses) {
-                        places.add(parsePlace(placeResponse));
-                    }
-                    return places;
-                })
+                .flatMapSingle(location -> placesApiService.getNearbyPlaces(location.getLatitude(),
+                        location.getLongitude(), PlacesApiService.TYPE_CAFE, RADIUS))
+                .flatMap(placesResponseWrapper ->
+                        Observable.from(placesResponseWrapper.getResults())
+                                .map(this::parsePlace)
+                                .toList())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<UiPlace>>() {
                     @Override public void onCompleted() {
