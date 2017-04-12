@@ -2,6 +2,7 @@ package com.tine.coffeeshops.ui.main.map;
 
 import android.content.Context;
 
+import com.tine.coffeeshops.api.service.PlacesApiService;
 import com.tine.coffeeshops.di.scopes.ViewScope;
 
 import dagger.Module;
@@ -20,7 +21,8 @@ public class CoffeeShopsMapModule {
         return view;
     }
 
-    @ViewScope @Provides CoffeeShopsMapMvp.Presenter providePresenter(CoffeeShopsMapMvp.View view, Context context) {
-        return new CoffeeShopsMapPresenter(view, context);
+    @ViewScope @Provides CoffeeShopsMapMvp.Presenter providePresenter(CoffeeShopsMapMvp.View view, Context context,
+            PlacesApiService placesApiService) {
+        return new CoffeeShopsMapPresenter(view, context, placesApiService);
     }
 }

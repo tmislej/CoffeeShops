@@ -1,6 +1,7 @@
 package com.tine.coffeeshops;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import javax.inject.Singleton;
 
@@ -22,5 +23,9 @@ public class AppModule {
 
     @Provides @Singleton Context provideApplicationContext() {
         return app;
+    }
+
+    @Provides @Singleton Resources provideResources(Context context) {
+        return context.getResources();
     }
 }

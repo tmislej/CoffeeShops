@@ -25,6 +25,9 @@ project.ext {
     butterknifeVersion = '8.5.1'
     rxJavaVersion = '1.2.7'
     rxAndroidVersion = '1.2.1'
+    retrofitVersion = '2.2.0'
+    okhttpVersion = '3.6.0'
+    gsonVersion = '2.7'
 }
 
 task clean(type: Delete) {
