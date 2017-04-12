@@ -11,6 +11,7 @@
     <string name="place_opening_hours_unknown">Unknown opening hours</string>
 
     <string name="no_data">No nearby places found in your area.</string>
+    <string name="error_data">An error occured while retrieving data.</string>
 
     <string name="api_key">AIzaSyDKW-g7h1lj6AFyA04BZenErtp3cymCN5U</string>
 </resources>

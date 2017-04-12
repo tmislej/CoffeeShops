@@ -7,7 +7,10 @@ import com.google.android.gms.maps.GoogleMap;
 public interface CoffeeShopsMapMvp {
 
     interface View {
+
         void showInfoSnackbar(@StringRes int res);
+
+        void showErrorSnabckbar(@StringRes int res);
 
         void setMyLocationEnabled(boolean enabled);
     }

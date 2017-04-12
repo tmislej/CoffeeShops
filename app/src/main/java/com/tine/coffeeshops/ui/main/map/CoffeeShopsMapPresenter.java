@@ -67,8 +67,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
                     }
 
                     @Override public void onError(Throwable e) {
-                        // TODO: 12/04/17 impl.
-
+                        view.showErrorSnabckbar(R.string.error_data);
                     }
 
                     @Override public void onNext(@Nullable List<UiPlace> places) {

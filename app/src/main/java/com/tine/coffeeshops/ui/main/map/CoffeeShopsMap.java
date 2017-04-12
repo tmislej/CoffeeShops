@@ -18,7 +18,9 @@ import javax.inject.Inject;
 public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, OnMapReadyCallback {
 
     @Inject CoffeeShopsMapMvp.Presenter presenter;
+
     private GoogleMap map;
+    private Snackbar errorSnackbar;
 
     public CoffeeShopsMap(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -33,6 +35,10 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
     @Override protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        if (errorSnackbar != null) {
+            errorSnackbar.dismiss();
+        }
+
         presenter.onDetachedFromWindow();
     }
 
@@ -64,5 +70,15 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
     @Override public void showInfoSnackbar(@StringRes int res) {
         Snackbar.make(this, res, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override public void showErrorSnabckbar(@StringRes int res) {
+        if (errorSnackbar != null && errorSnackbar.isShown()) {
+            errorSnackbar.dismiss();
+        }
+
+        errorSnackbar = Snackbar.make(this, res, Snackbar.LENGTH_LONG);
+        errorSnackbar.getView().setBackgroundResource(android.R.color.holo_red_light);
+        errorSnackbar.show();
     }
 }
