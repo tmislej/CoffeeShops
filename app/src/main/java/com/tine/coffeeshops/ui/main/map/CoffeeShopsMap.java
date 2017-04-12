@@ -47,19 +47,6 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
         presenter.onDetachedFromWindow();
     }
 
-    public void onReady() {
-        presenter.onReady();
-    }
-
-    private void inject() {
-        MainActivity activity = (MainActivity) getContext();
-        DaggerCoffeeShopsMapComponent.builder()
-                .mainComponent(activity.getComponent())
-                .coffeeShopsMapModule(new CoffeeShopsMapModule(this))
-                .build()
-                .inject(this);
-    }
-
     @Override public void setMyLocationEnabled(boolean enabled) {
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -93,5 +80,18 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
     @Override public void hideLoading() {
         loadingSnackbar.dismiss();
+    }
+
+    public void onReady() {
+        presenter.onReady();
+    }
+
+    private void inject() {
+        MainActivity activity = (MainActivity) getContext();
+        DaggerCoffeeShopsMapComponent.builder()
+                .mainComponent(activity.getComponent())
+                .coffeeShopsMapModule(new CoffeeShopsMapModule(this))
+                .build()
+                .inject(this);
     }
 }

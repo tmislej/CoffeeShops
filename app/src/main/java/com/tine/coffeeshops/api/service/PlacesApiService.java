@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.Single;
 import rx.schedulers.Schedulers;
 
 @Singleton
