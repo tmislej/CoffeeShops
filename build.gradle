@@ -30,6 +30,8 @@ project.ext {
     gsonVersion = '2.7'
     mapUtilsVersion= '0.5+'
     designSupportVersion = '25.3.1'
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
 }
 
 task clean(type: Delete) {

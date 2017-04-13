@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.tine.coffeeshops.api.service.PlacesApiService;
+import com.tine.coffeeshops.rx.location.MainThreadManager;
 
 import javax.inject.Singleton;
 
@@ -20,4 +21,6 @@ public interface AppComponent {
     Resources resources();
 
     PlacesApiService placesApiService();
+
+    MainThreadManager mainThreadManager();
 }

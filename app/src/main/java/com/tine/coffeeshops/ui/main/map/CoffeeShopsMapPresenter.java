@@ -11,6 +11,7 @@ import com.tine.coffeeshops.api.model.OpeningHoursResponse;
 import com.tine.coffeeshops.api.model.PlaceResponse;
 import com.tine.coffeeshops.api.service.PlacesApiService;
 import com.tine.coffeeshops.rx.location.LocationObservable;
+import com.tine.coffeeshops.rx.location.MainThreadManager;
 import com.tine.coffeeshops.ui.main.map.model.UiPlace;
 
 import java.util.List;
@@ -18,7 +19,6 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
 
@@ -28,6 +28,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
     private final Context context;
     private final PlacesApiService placesApiService;
     private final Resources resources;
+    private final MainThreadManager mainThreadManager;
 
     private ClusterManager<UiPlace> clusterManager;
 
@@ -35,11 +36,12 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
     private Subscription locationSubscription;
 
     public CoffeeShopsMapPresenter(CoffeeShopsMapMvp.View view, Context context, PlacesApiService placesApiService,
-            Resources resources) {
+            Resources resources, MainThreadManager mainThreadManager) {
         this.view = view;
         this.context = context;
         this.placesApiService = placesApiService;
         this.resources = resources;
+        this.mainThreadManager = mainThreadManager;
     }
 
     @Override public void onReady() {
@@ -57,7 +59,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
                         Observable.from(placesResponseWrapper.getResults())
                                 .map(this::parsePlace)
                                 .toList())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(mainThreadManager.observableToMainThread())
                 .subscribe(new Subscriber<List<UiPlace>>() {
                     @Override public void onCompleted() {
                     }

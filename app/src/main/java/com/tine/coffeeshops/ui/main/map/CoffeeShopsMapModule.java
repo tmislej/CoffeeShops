@@ -5,6 +5,7 @@ import android.content.res.Resources;
 
 import com.tine.coffeeshops.api.service.PlacesApiService;
 import com.tine.coffeeshops.di.scopes.ViewScope;
+import com.tine.coffeeshops.rx.location.MainThreadManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,7 +24,7 @@ public class CoffeeShopsMapModule {
     }
 
     @ViewScope @Provides CoffeeShopsMapMvp.Presenter providePresenter(CoffeeShopsMapMvp.View view, Context context,
-            PlacesApiService placesApiService, Resources resources) {
-        return new CoffeeShopsMapPresenter(view, context, placesApiService, resources);
+            PlacesApiService placesApiService, Resources resources, MainThreadManager mainThreadManager) {
+        return new CoffeeShopsMapPresenter(view, context, placesApiService, resources, mainThreadManager);
     }
 }

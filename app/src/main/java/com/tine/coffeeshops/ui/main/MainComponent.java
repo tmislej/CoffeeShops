@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import com.tine.coffeeshops.AppComponent;
 import com.tine.coffeeshops.api.service.PlacesApiService;
 import com.tine.coffeeshops.di.scopes.ActivityScope;
+import com.tine.coffeeshops.rx.location.MainThreadManager;
 
 import dagger.Component;
 
@@ -20,4 +21,6 @@ public interface MainComponent {
     Resources resources();
 
     PlacesApiService placesApiService();
+
+    MainThreadManager mainThreadManager();
 }
