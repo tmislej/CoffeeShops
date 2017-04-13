@@ -11,8 +11,10 @@ import android.util.AttributeSet;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.maps.android.clustering.ClusterManager;
 import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.ui.main.MainActivity;
+import com.tine.coffeeshops.ui.main.map.model.UiPlace;
 
 import javax.inject.Inject;
 
@@ -56,7 +58,12 @@ public class CoffeeShopsMap extends MapView implements CoffeeShopsMapMvp.View, O
 
     @Override public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        presenter.onMapReady(map);
+        ClusterManager<UiPlace> clusterManager = new ClusterManager<>(getContext(), map);
+
+        map.setOnCameraIdleListener(clusterManager);
+        map.setOnMarkerClickListener(clusterManager);
+
+        presenter.onMapReady(clusterManager);
     }
 
     @Override public void showInfoSnackbar(@StringRes int res) {

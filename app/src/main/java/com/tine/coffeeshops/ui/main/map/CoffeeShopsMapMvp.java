@@ -2,7 +2,8 @@ package com.tine.coffeeshops.ui.main.map;
 
 import android.support.annotation.StringRes;
 
-import com.google.android.gms.maps.GoogleMap;
+import com.google.maps.android.clustering.ClusterManager;
+import com.tine.coffeeshops.ui.main.map.model.UiPlace;
 
 public interface CoffeeShopsMapMvp {
 
@@ -25,6 +26,6 @@ public interface CoffeeShopsMapMvp {
 
         void onDetachedFromWindow();
 
-        void onMapReady(GoogleMap map);
+        void onMapReady(ClusterManager<UiPlace> clusterManager);
     }
 }

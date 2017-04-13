@@ -1,17 +1,15 @@
 package com.tine.coffeeshops.ui.main.map;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.maps.android.clustering.ClusterManager;
 import com.tine.coffeeshops.R;
 import com.tine.coffeeshops.api.model.OpeningHoursResponse;
 import com.tine.coffeeshops.api.model.PlaceResponse;
 import com.tine.coffeeshops.api.service.PlacesApiService;
-import com.tine.coffeeshops.rx.location.LocationObservable;
 import com.tine.coffeeshops.rx.location.MainThreadManager;
+import com.tine.coffeeshops.ui.main.map.manager.LocationManager;
 import com.tine.coffeeshops.ui.main.map.model.UiPlace;
 
 import java.util.List;
@@ -25,23 +23,23 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
     private static final int RADIUS = 250;
 
     private final CoffeeShopsMapMvp.View view;
-    private final Context context;
     private final PlacesApiService placesApiService;
     private final Resources resources;
     private final MainThreadManager mainThreadManager;
+    private final LocationManager locationManager;
 
     private ClusterManager<UiPlace> clusterManager;
 
     private boolean isMapReady = false;
     private Subscription locationSubscription;
 
-    public CoffeeShopsMapPresenter(CoffeeShopsMapMvp.View view, Context context, PlacesApiService placesApiService,
-            Resources resources, MainThreadManager mainThreadManager) {
+    public CoffeeShopsMapPresenter(CoffeeShopsMapMvp.View view, PlacesApiService placesApiService,
+            Resources resources, MainThreadManager mainThreadManager, LocationManager locationManager) {
         this.view = view;
-        this.context = context;
         this.placesApiService = placesApiService;
         this.resources = resources;
         this.mainThreadManager = mainThreadManager;
+        this.locationManager = locationManager;
     }
 
     @Override public void onReady() {
@@ -50,7 +48,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
         }
 
         view.showLoading();
-        locationSubscription = Observable.create(new LocationObservable(context))
+        locationSubscription = locationManager.requestLocationUpdates()
                 .flatMap(location -> placesApiService.getNearbyPlaces(location.getLatitude(),
                         location.getLongitude(), PlacesApiService.TYPE_CAFE, RADIUS)
                         .onErrorResumeNext(Observable.empty())
@@ -85,12 +83,10 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
                 });
     }
 
-    @Override public void onMapReady(GoogleMap map) {
+    @Override public void onMapReady(ClusterManager<UiPlace> clusterManager) {
+        this.clusterManager = clusterManager;
         isMapReady = true;
-        clusterManager = new ClusterManager<>(context, map);
         view.setMyLocationEnabled(true);
-        map.setOnCameraIdleListener(clusterManager);
-        map.setOnMarkerClickListener(clusterManager);
     }
 
     @Override public void onDetachedFromWindow() {
