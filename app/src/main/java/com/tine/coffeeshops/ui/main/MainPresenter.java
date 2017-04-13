@@ -39,6 +39,9 @@ public class MainPresenter implements MainMvp.Presenter {
                 } else {
                     onPermissionDeclined();
                 }
+                break;
+            default:
+                throw new IllegalStateException("Unknown request code");
         }
     }
 
