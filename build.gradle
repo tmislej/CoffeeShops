@@ -32,6 +32,7 @@ project.ext {
     designSupportVersion = '25.3.1'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
+    powermockVersion = '1.6.5'
 }
 
 task clean(type: Delete) {

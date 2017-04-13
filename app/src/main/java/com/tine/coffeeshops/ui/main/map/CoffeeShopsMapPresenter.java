@@ -5,12 +5,11 @@ import android.support.annotation.Nullable;
 
 import com.google.maps.android.clustering.ClusterManager;
 import com.tine.coffeeshops.R;
-import com.tine.coffeeshops.api.model.OpeningHoursResponse;
-import com.tine.coffeeshops.api.model.PlaceResponse;
 import com.tine.coffeeshops.api.service.PlacesApiService;
 import com.tine.coffeeshops.rx.location.MainThreadManager;
 import com.tine.coffeeshops.ui.main.map.manager.LocationManager;
 import com.tine.coffeeshops.ui.main.map.model.UiPlace;
+import com.tine.coffeeshops.ui.main.map.ui.PlaceParseUtil;
 
 import java.util.List;
 
@@ -55,7 +54,7 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
                 )
                 .flatMap(placesResponseWrapper ->
                         Observable.from(placesResponseWrapper.getResults())
-                                .map(this::parsePlace)
+                                .map(placeResponse -> PlaceParseUtil.parsePlace(placeResponse, resources))
                                 .toList())
                 .compose(mainThreadManager.observableToMainThread())
                 .subscribe(new Subscriber<List<UiPlace>>() {
@@ -93,21 +92,5 @@ public class CoffeeShopsMapPresenter implements CoffeeShopsMapMvp.Presenter {
         if (locationSubscription != null && !locationSubscription.isUnsubscribed()) {
             locationSubscription.unsubscribe();
         }
-    }
-
-    private UiPlace parsePlace(PlaceResponse placeResponse) {
-        double latitude = placeResponse.getGeometry().getLocation().getLat();
-        double longitude = placeResponse.getGeometry().getLocation().getLng();
-        String name = placeResponse.getName();
-
-        OpeningHoursResponse openingHours = placeResponse.getOpeningHours();
-        String info;
-        if (openingHours != null) {
-            info = resources.getString(openingHours.isOpenNow() ? R.string.place_opened : R.string.place_closed);
-        } else {
-            info = resources.getString(R.string.place_opening_hours_unknown);
-        }
-
-        return new UiPlace(latitude, longitude, name, info);
     }
 }

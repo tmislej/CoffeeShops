@@ -64,9 +64,13 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
 
+    // testing
     testCompile "junit:junit:$junitVersion"
     testCompile "org.mockito:mockito-core:$mockitoVersion"
     testCompile 'org.assertj:assertj-core:3.6.1'
+    testCompile "org.powermock:powermock:$powermockVersion"
+    testCompile "org.powermock:powermock-module-junit4:$powermockVersion"
+    testCompile "org.powermock:powermock-api-mockito:$powermockVersion"
 
     testCompile 'junit:junit:4.12'
 }
